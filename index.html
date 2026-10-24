@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" style="background:#000">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#000000">
+<title>BREEZE</title>
+<style>
+  html, body { margin: 0; background: #000; color: #fff; font: 15px/1.5 Inter, system-ui, -apple-system, sans-serif; }
+  main { padding: 32px 16px; }
+  a { color: #00E0FF; }
+</style>
+</head>
+<body>
+<main><p>Opening BREEZE. <a id="go" href="https://f34c77b095a6e7.lhr.life/">Tap here if nothing happens.</a></p></main>
+<script>
+(function () {
+  var link = document.getElementById('go');
+  var rest = location.pathname + location.search + location.hash;
+  function go(base) { location.replace(base.replace(/\/+$/, '') + rest); }
+  // target.json holds the current tunnel link; the query string skips the CDN cache.
+  fetch('/target.json?t=' + Date.now(), { cache: 'no-store' })
+    .then(function (r) { return r.json(); })
+    .then(function (d) { link.href = d.url; go(d.url); })
+    .catch(function () { go(link.href); });
+})();
+</script>
+</body>
+</html>
